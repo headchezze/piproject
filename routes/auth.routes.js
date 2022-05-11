@@ -15,7 +15,7 @@ router.post(
     {
         const errors = validationResult(req)
 
-        if(!errros.isEmpty())
+        if(!errors.isEmpty())
         {
             return res.status(400).json({errors: errors.array(),
             message: 'Invalid data'})
@@ -43,8 +43,43 @@ router.post(
     }
 })
 
-router.post('/login', async (req, res) => {
-    
+router.post(
+    '/login', 
+    [
+        check('email', 'Enter correct email').normalizeEmail().isEmail(),
+        check('password', "Enter password").exists()
+    ],
+    async (req, res) => {
+        try
+        {
+            const errors = validationResult(req)
+
+            if(!errors.isEmpty())
+            {
+                return res.status(400).json({errors: errors.array(),
+                    message: 'Invalid login details'})
+            }
+            
+            const {email, password} = req.body
+
+            const user = await User.findOne({ email })
+            if (!user)
+            {
+                return res.status(400).json({message: 'User not found'});
+            }
+            
+            const isMatch = await bcrypt.compare(password, user.password) // Пароль почему-то обводкой 42
+
+            if (!isMatch)
+            {
+                return res.status(400).json({message: 'Incorrect password.' +
+                        ' Try again'});
+            }
+            
+        } catch(e)
+        {
+            res.status(500).json({message: 'Oops, something goes wrong. Try next time!'});
+        }
 })
 
 module.exports = router;
