@@ -1,4 +1,5 @@
 {
     "port" : 5000,
+    "jwtSecret": "ourProjectPi", 
     "mongoUri": "mongodb+srv://piprojectWork:paravoz98@cluster0.2murd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 }
