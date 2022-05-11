@@ -10,8 +10,10 @@
   "author": "Bespalnik Pavel",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "config": "^3.3.7",
     "express": "^4.18.1",
+    "express-validator": "^6.14.0",
     "mongoose": "^6.3.3"
   },
   "devDependencies": {
