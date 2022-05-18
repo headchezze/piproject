@@ -13,7 +13,9 @@ async function connectToDB()
     try
     {
        await mongoose.connect(config.get("mongoUri"), {
-        useUnifiedTopology: true
+           // useNewUrlParser: true,  почему нет?
+                   useUnifiedTopology: true
+           // useCreateIndex: true  почему нет?
        });
        app.listen(PORT, () => console.log(`App has been started on port ${PORT}`));
     } catch(e)  

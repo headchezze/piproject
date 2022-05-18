@@ -80,7 +80,7 @@ router.post(
             
             const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {expiresIn: '4h'}) // Проблема с user ud 45
             
-            res.json({token, userId: user.id})
+            res.json({token, userId: user.id})   
             
         } catch(e)
         {

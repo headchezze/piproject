@@ -1,0 +1,19 @@
+Index: routes/auth.routes.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const {Router} = require(\"express\")\r\nconst bcrypt = require('bcryptjs')\r\nconst config = require('config')\r\nconst {check, validationResult} = require('express-validator')\r\nconst jwt = require('jsonwebtoken')\r\nconst User = require('../models/User')\r\nconst router = Router();\r\n\r\nrouter.post(\r\n    '/register',\r\n    [\r\n        check('email', 'Incorrect email').isEmail(),\r\n        check('password', 'Password must have at least 6 characters').isLength({min: 6})\r\n    ],\r\n    async (req, res) => {\r\n    try\r\n    {\r\n        const errors = validationResult(req)\r\n\r\n        if(!errors.isEmpty())\r\n        {\r\n            return res.status(400).json({errors: errors.array(),\r\n            message: 'Invalid data'})\r\n        }\r\n\r\n        const {email, password} = req.body;\r\n\r\n        const candidate = await User.findOne({email: email});\r\n\r\n        if(candidate)\r\n        {\r\n            return res.status(400).json({message: 'Such a user already exists'});\r\n        }\r\n\r\n        const hashedPassword = await bcrypt.hash(password, 23)\r\n        const user = new User({email: email, password: hashedPassword})\r\n\r\n        await user.save()\r\n\r\n        res.status(201).json({message: 'User has been created'})\r\n\r\n    } catch(e)\r\n    {\r\n        res.status(500).json({message: 'Oops, something goes wrong. Try next time!'});\r\n    }\r\n})\r\n\r\nrouter.post(\r\n    '/login', \r\n    [\r\n        check('email', 'Enter correct email').normalizeEmail().isEmail(),\r\n        check('password', \"Enter password\").exists()\r\n    ],\r\n    async (req, res) => {\r\n        try\r\n        {\r\n            const errors = validationResult(req)\r\n\r\n            if(!errors.isEmpty())\r\n            {\r\n                return res.status(400).json({errors: errors.array(),\r\n                    message: 'Invalid login details'})\r\n            }\r\n            \r\n            const {email, password} = req.body\r\n\r\n            const user = await User.findOne({ email })\r\n            if (!user)\r\n            {\r\n                return res.status(400).json({message: 'User not found'});\r\n            }\r\n            \r\n            const isMatch = await bcrypt.compare(password, user.password) // Пароль почему-то обводкой 42\r\n\r\n            if (!isMatch)\r\n            {\r\n                return res.status(400).json({message: 'Incorrect password.' +\r\n                        ' Try again'});\r\n            }\r\n            \r\n            const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {expiresIn: '4h'}) // Проблема с user ud 45\r\n            \r\n            res.json({token, userId: user.id})\r\n            \r\n        } catch(e)\r\n        {\r\n            res.status(500).json({message: 'Oops, something goes wrong. Try next time!'});\r\n        }\r\n})\r\n\r\nmodule.exports = router;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/routes/auth.routes.js b/routes/auth.routes.js
+--- a/routes/auth.routes.js	(revision 53693f6be803317e50bb729e312aa3115110a535)
++++ b/routes/auth.routes.js	(date 1652890347779)
+@@ -80,7 +80,7 @@
+             
+             const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {expiresIn: '4h'}) // Проблема с user ud 45
+             
+-            res.json({token, userId: user.id})
++            res.json({token, userId: user.id})   
+             
+         } catch(e)
+         {
