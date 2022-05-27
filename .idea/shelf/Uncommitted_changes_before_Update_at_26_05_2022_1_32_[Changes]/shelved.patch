@@ -1,0 +1,313 @@
+Index: client/src/pages/AuthPage.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useContext, useEffect, useState} from 'react'\r\nimport { AuthContext } from '../context/AuthContext'\r\nimport { useHttp } from '../hooks/http.hook'\r\n\r\nexport const AuthPage = () => {\r\n    const auth = useContext(AuthContext)\r\n    const message = useMessage()\r\n    const {loading, request, error, clearError} = useHttp()\r\n    const [form, setForm] = useState({\r\n        email: '', password: ''\r\n    })\r\n\r\n    useEffect(() => {\r\n        message(error)\r\n        clearError()\r\n    }, [error, message, clearError])\r\n    \r\n    const changeHandler = event => {\r\n        setForm({...form, [event.target.name]: event.target.value })\r\n    }\r\n    \r\n    const registerHandler = async () =>{\r\n        try {\r\n            const data = await request('/api/auth/register', 'POST', {...form})\r\n            auth.login(data.token, data.userId)\r\n        } catch (error) {\r\n            \r\n        }\r\n\r\n    }\r\n\r\n    const loginHandler = async () =>{\r\n        try {\r\n            const data = await request('/api/auth/login', 'POST', {...form})\r\n            message(data.message)\r\n        } catch (error) {\r\n            \r\n        }\r\n\r\n    }\r\n\r\n    return (\r\n        <div className = \"row\">\r\n            <div className=\"col s6 offset-s3\">\r\n                <h1>Сокращение ссылок</h1>\r\n                <div className=\"card light-blue darken-3\">\r\n                    <div className=\"card-content white-text\">\r\n                        <span className=\"card-title\" style={{marginLeft: 205}}>Авторизация</span>\r\n                        <div>\r\n                            <div className=\"input-field\">\r\n                                <input placeholder=\"\" \r\n                                       id=\"email\"\r\n                                       type=\"text\"\r\n                                       name=\"email\"\r\n                                       className=\"color-input\"\r\n                                       onChange={changeHandler}\r\n                                       />\r\n                                    <label htmlFor=\"email\">Введите почту</label>\r\n                            </div>\r\n\r\n                            <div className=\"input-field\">\r\n                                <input placeholder=\"\"\r\n                                       id=\"password\"\r\n                                       type=\"password\"\r\n                                       name= \"password\"\r\n                                       className=\"color-input\"\r\n                                       onChange={changeHandler}\r\n                                />\r\n                                <label htmlFor=\"email\">Введите пароль</label>\r\n                            </div>\r\n                            \r\n                        </div>\r\n                    </div>\r\n                    <div className=\"card-action\">\r\n                        <button \r\n                        className=\"btn ldeep-purple lighten-3\"  \r\n                        style={{marginLeft: 85, marginRight: 30}}\r\n                        onClick={loginHandler}\r\n                        disabled={loading}>\r\n                        Войти в систему</button>\r\n                        <button \r\n                        className=\"btn deep-orange lighten-1\"\r\n                        onClick={registerHandler}\r\n                        disabled={loading}>\r\n                        Зарегистрироваться</button>\r\n                    </div>\r\n                </div>\r\n                <h8>Учебный проект по ПИ</h8>\r\n            </div>\r\n        </div>\r\n    )\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/pages/AuthPage.js b/client/src/pages/AuthPage.js
+--- a/client/src/pages/AuthPage.js	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
++++ b/client/src/pages/AuthPage.js	(date 1653510527185)
+@@ -1,35 +1,31 @@
+-import React, {useContext, useEffect, useState} from 'react'
+-import { AuthContext } from '../context/AuthContext'
+-import { useHttp } from '../hooks/http.hook'
++import React from 'react'
++//import React, {useState} from 'react'
++//import { useHttp } from '../hooks/http.hook'
+ 
+ export const AuthPage = () => {
+-    const auth = useContext(AuthContext)
+-    const message = useMessage()
+-    const {loading, request, error, clearError} = useHttp()
++    /*const {loading, request} = useHttp()
+     const [form, setForm] = useState({
+         email: '', password: ''
+-    })
++    })*/
+ 
+-    useEffect(() => {
++   /* useEffect(() => {
+         message(error)
+         clearError()
+-    }, [error, message, clearError])
++    }, [error, message, clearError])*/
+     
+-    const changeHandler = event => {
++    /*const changeHandler = event => {
+         setForm({...form, [event.target.name]: event.target.value })
+     }
+     
+     const registerHandler = async () =>{
+         try {
+             const data = await request('/api/auth/register', 'POST', {...form})
+-            auth.login(data.token, data.userId)
+-        } catch (error) {
+-            
+-        }
++            console.log('Data', data)// я добавил
++           // auth.login(data.token, data.userId)// было
++        } catch (error) {}
++    }*/
+ 
+-    }
+-
+-    const loginHandler = async () =>{
++    /*const loginHandler = async () =>{
+         try {
+             const data = await request('/api/auth/login', 'POST', {...form})
+             message(data.message)
+@@ -37,7 +33,7 @@
+             
+         }
+ 
+-    }
++    }*/
+ 
+     return (
+         <div className = "row">
+@@ -48,23 +44,25 @@
+                         <span className="card-title" style={{marginLeft: 205}}>Авторизация</span>
+                         <div>
+                             <div className="input-field">
+-                                <input placeholder="" 
+-                                       id="email"
+-                                       type="text"
+-                                       name="email"
+-                                       className="color-input"
+-                                       onChange={changeHandler}
+-                                       />
+-                                    <label htmlFor="email">Введите почту</label>
++                                <input 
++                                    placeholder="" 
++                                    id="email"
++                                    type="text"
++                                    name="email"                                       
++                                    //className="color-input"                                       
++                                    //onChange={changeHandler}
++                                />
++                                <label htmlFor="email">Введите почту</label>
+                             </div>
+ 
+                             <div className="input-field">
+-                                <input placeholder=""
+-                                       id="password"
+-                                       type="password"
+-                                       name= "password"
+-                                       className="color-input"
+-                                       onChange={changeHandler}
++                                <input 
++                                    placeholder=""
++                                    id="password"
++                                    type="password"
++                                    name= "password"
++                                    //className="color-input"
++                                    //onChange={changeHandler}
+                                 />
+                                 <label htmlFor="email">Введите пароль</label>
+                             </div>
+@@ -75,13 +73,13 @@
+                         <button 
+                         className="btn ldeep-purple lighten-3"  
+                         style={{marginLeft: 85, marginRight: 30}}
+-                        onClick={loginHandler}
+-                        disabled={loading}>
++                        //onClick={loginHandler}
++                        /*disabled={loading}*/>
+                         Войти в систему</button>
+                         <button 
+                         className="btn deep-orange lighten-1"
+-                        onClick={registerHandler}
+-                        disabled={loading}>
++                        //onClick={registerHandler}
++                        /*disabled={loading}*/>
+                         Зарегистрироваться</button>
+                     </div>
+                 </div>
+Index: client/src/hooks/http.hook.js
+===================================================================
+diff --git a/client/src/hooks/http.hook.js b/client/src/hooks/http.hook.js
+deleted file mode 100644
+--- a/client/src/hooks/http.hook.js	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
++++ /dev/null	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
+@@ -1,37 +0,0 @@
+-import {useState, useCallback} from 'react'
+-
+-export const useHttp = () => {
+-    const [loading, setLoading] = useState(false)
+-    const [error, setError] = useState(null)
+-    const request = useCallback( async (url, method = 'GET', body= null, headers = {}) => {
+-        setLoading(true)
+-        try {
+-
+-            if(body)
+-            {
+-                body = JSON.stringify(body)
+-                headers['Content-Type'] = 'application/json'
+-            }
+-            const response =  await fetch(url, {
+-                method, body, headers
+-            })
+-            const data = await response.json()
+-
+-            if (!response.ok){
+-                throw new Error(data.message || 'Oops, something goes wrong. Try next time!')
+-            }
+-
+-            setLoading(false)
+-
+-            return data
+-        } catch (e) {
+-          setLoading(false)  
+-          setError(e.message)
+-          throw e
+-        }
+-    }, [])
+-
+-    const clearError = useCallback(() => setError(null), [])
+-
+-    return {loading, request, error, clearError}
+-}
+\ No newline at end of file
+Index: client/src/hooks/message.hook.js
+===================================================================
+diff --git a/client/src/hooks/message.hook.js b/client/src/hooks/message.hook.js
+deleted file mode 100644
+--- a/client/src/hooks/message.hook.js	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
++++ /dev/null	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
+@@ -1,8 +0,0 @@
+-import { useCallback } from "react"
+-export const useMessage= () => {
+-  return useCallback((text) => {
+-    if (window.M && text){
+-        window.M.toast({ html: text})
+-    }
+-  }, [])  
+-}
+\ No newline at end of file
+Index: client/src/hooks/auth.hook.js
+===================================================================
+diff --git a/client/src/hooks/auth.hook.js b/client/src/hooks/auth.hook.js
+deleted file mode 100644
+--- a/client/src/hooks/auth.hook.js	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
++++ /dev/null	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
+@@ -1,35 +0,0 @@
+-import { json } from "express/lib/response"
+-import { useState, useCallback, useEffect } from "react"
+-
+-const storageName = 'userData'
+-
+-export const useAuth = () => {
+-    const [token, setToken] = useState(null)
+-    const [userId, setUserId] = useState(null)
+-
+-    const login = useCallback((jwtToken, Id) => {
+-        setToken(jwtToken)
+-        setUserId(Id)
+-
+-        localStorage.setItem(storageName, JSON.stringify({
+-            userId: Id,
+-            token: jwtToken
+-        }))
+-    }, [])
+-    const logout = useCallback(() => {
+-        setToken(null)
+-        setUserId(null)
+-
+-        localStorage.removeItem(storageName)
+-    }, [])
+-
+-    useEffect(() => {
+-        const data = JSON.parse(localStorage.getItem(storageName))
+-
+-        if(data && data.token){
+-            login(data.token, data.userId)
+-        }
+-    }, [login])
+-
+-    return {login, logout, token, userId}
+-}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"ae1331da-ff2a-4637-ab0b-2e6ef2ecd2c2\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2022_21_12__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2022_21_12__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/client/src/index.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/client/src/index.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/client/src/pages/AuthPage.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/client/src/pages/AuthPage.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"29LlK9DuCYSb5IS1F1kg4RC6woA\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"last_opened_file_path\": \"D:/Study/piproject/piproject\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"ts.external.directory.path\": \"D:\\\\Programs\\\\PhpStorm 2022.1\\\\plugins\\\\JavaScriptLanguage\\\\jsLanguageServicesImpl\\\\external\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"ae1331da-ff2a-4637-ab0b-2e6ef2ecd2c2\" name=\"Changes\" comment=\"\" />\r\n      <created>1652900180789</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1652900180789</updated>\r\n      <workItem from=\"1652900182470\" duration=\"136000\" />\r\n      <workItem from=\"1652900330568\" duration=\"355000\" />\r\n      <workItem from=\"1652900699931\" duration=\"144000\" />\r\n      <workItem from=\"1652900868013\" duration=\"322000\" />\r\n      <workItem from=\"1653029852955\" duration=\"109000\" />\r\n      <workItem from=\"1653030019716\" duration=\"4894000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e6e81f0815bf5000aec40383960d0d00616c614f)
++++ b/.idea/workspace.xml	(date 1653510612551)
+@@ -1,10 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="ae1331da-ff2a-4637-ab0b-2e6ef2ecd2c2" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2022_21_12__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2022_21_12__Changes_.xml" afterDir="false" />
++    <list default="true" id="c07f78dd-9de8-4f74-81ad-ce2a612c8b44" name="Changes" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/client/src/hooks/auth.hook.js" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/client/src/hooks/http.hook.js" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/client/src/hooks/message.hook.js" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/client/src/pages/AuthPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/AuthPage.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -17,6 +18,14 @@
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="GitSEFilterConfiguration">
++    <file-type-list>
++      <filtered-out-file-type name="LOCAL_BRANCH" />
++      <filtered-out-file-type name="REMOTE_BRANCH" />
++      <filtered-out-file-type name="TAG" />
++      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
++    </file-type-list>
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -26,21 +35,18 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "last_opened_file_path": "D:/Study/piproject/piproject",
+-    "nodejs_package_manager_path": "npm",
+-    "ts.external.directory.path": "D:\\Programs\\PhpStorm 2022.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
+-    "vue.rearranger.settings.migration": "true"
+-  }
+-}]]></component>
++  <component name="PropertiesComponent">
++    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
++    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="WebServerToolWindowFactoryState" value="false" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="nodejs_package_manager_path" value="npm" />
++    <property name="vue.rearranger.settings.migration" value="true" />
++  </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="ae1331da-ff2a-4637-ab0b-2e6ef2ecd2c2" name="Changes" comment="" />
++      <changelist id="c07f78dd-9de8-4f74-81ad-ce2a612c8b44" name="Changes" comment="" />
+       <created>1652900180789</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+@@ -51,6 +57,11 @@
+       <workItem from="1652900868013" duration="322000" />
+       <workItem from="1653029852955" duration="109000" />
+       <workItem from="1653030019716" duration="4894000" />
++      <workItem from="1653299304698" duration="287000" />
++      <workItem from="1653299644846" duration="720000" />
++      <workItem from="1653308554776" duration="1298000" />
++      <workItem from="1653376410460" duration="720000" />
++      <workItem from="1653476952323" duration="11276000" />
+     </task>
+     <servers />
+   </component>
