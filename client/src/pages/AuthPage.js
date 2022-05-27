@@ -1,17 +1,15 @@
-import React, {useContext, useEffect, useState} from 'react'
-import { AuthContext } from '../context/AuthContext'
+import React, {useEffect,useState} from 'react'
 import { useHttp } from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 
 export const AuthPage = () => {
-    const auth = useContext(AuthContext)
-    const message = useMessage()
+   const message = useMessage()
     const {loading, request, error, clearError} = useHttp()
     const [form, setForm] = useState({
         email: '', password: ''
     })
-
-    useEffect(() => {
+    
+    useEffect(() => {        
         message(error)
         clearError()
     }, [error, message, clearError])
@@ -23,14 +21,12 @@ export const AuthPage = () => {
     const registerHandler = async () =>{
         try {
             const data = await request('/api/auth/register', 'POST', {...form})
-            auth.login(data.token, data.userId)
-        } catch (error) {
-            
-        }
-
+            console.log('Data', data)// я добавил
+           // auth.login(data.token, data.userId)// было
+        } catch (e) {}
     }
 
-    const loginHandler = async () =>{
+    /*const loginHandler = async () =>{
         try {
             const data = await request('/api/auth/login', 'POST', {...form})
             message(data.message)
@@ -38,7 +34,7 @@ export const AuthPage = () => {
             
         }
 
-    }
+    }*/
 
     return (
         <div className = "row">
@@ -49,23 +45,25 @@ export const AuthPage = () => {
                         <span className="card-title" style={{marginLeft: 205}}>Авторизация</span>
                         <div>
                             <div className="input-field">
-                                <input placeholder="" 
-                                       id="email"
-                                       type="text"
-                                       name="email"
-                                       className="color-input"
-                                       onChange={changeHandler}
-                                       />
-                                    <label htmlFor="email">Введите почту</label>
+                                <input 
+                                    placeholder="" 
+                                    id="email"
+                                    type="text"
+                                    name="email"                                       
+                                    className="color-input"                                       
+                                    onChange={changeHandler}
+                                />
+                                <label htmlFor="email">Введите почту</label>
                             </div>
 
                             <div className="input-field">
-                                <input placeholder=""
-                                       id="password"
-                                       type="password"
-                                       name= "password"
-                                       className="color-input"
-                                       onChange={changeHandler}
+                                <input 
+                                    placeholder=""
+                                    id="password"
+                                    type="password"
+                                    name= "password"
+                                    className="color-input"
+                                    onChange={changeHandler}
                                 />
                                 <label htmlFor="email">Введите пароль</label>
                             </div>
@@ -76,17 +74,17 @@ export const AuthPage = () => {
                         <button 
                         className="btn ldeep-purple lighten-3"  
                         style={{marginLeft: 85, marginRight: 30}}
-                        onClick={loginHandler}
+                        //onClick={loginHandler}
                         disabled={loading}>
-                        Войти в систему</button>
+                        Войти в систему
+                        </button>
                         <button 
                         className="btn deep-orange lighten-1"
                         onClick={registerHandler}
                         disabled={loading}>
                         Зарегистрироваться</button>
                     </div>
-                </div>
-                <h8>Учебный проект по ПИ</h8>
+                </div>                
             </div>
         </div>
     )
