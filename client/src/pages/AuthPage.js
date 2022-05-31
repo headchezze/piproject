@@ -27,7 +27,7 @@ export const AuthPage = () => {
     const registerHandler = async () =>{
         try {
             const data = await request('/api/auth/register', 'POST', {...form})
-            console.log('Data', data)// я добавил
+            console.log('Data', data)
            // auth.login(data.token, data.userId)// было
         } catch (e) {}
     }
@@ -39,15 +39,7 @@ export const AuthPage = () => {
         } catch (e) {}
     }
 
-    /*const loginHandler = async () =>{
-        try {
-            const data = await request('/api/auth/login', 'POST', {...form})
-            message(data.message)
-        } catch (error) {
-            
-        }
-
-    }*/
+   
 
     return (
         <div className = "row">
@@ -63,7 +55,8 @@ export const AuthPage = () => {
                                     id="email"
                                     type="text"
                                     name="email"                                       
-                                    className="color-input"                                       
+                                    className="color-input"   
+                                    value={form.email}
                                     onChange={changeHandler}
                                 />
                                 <label htmlFor="email">Введите почту</label>
@@ -76,6 +69,7 @@ export const AuthPage = () => {
                                     type="password"
                                     name= "password"
                                     className="color-input"
+                                    value={form.password}
                                     onChange={changeHandler}
                                 />
                                 <label htmlFor="email">Введите пароль</label>

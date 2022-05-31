@@ -4,7 +4,8 @@ import {LinksPage} from "./pages/LinksPage";
 import {CreatePage} from "./pages/CreatePage";
 import {DetailPage} from "./pages/DetailPage";
 import {AuthPage} from "./pages/AuthPage";
-
+                                                          // в 9 строке
+// добавил ! в условие if
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated){
         return(
