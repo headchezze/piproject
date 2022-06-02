@@ -1,5 +1,4 @@
 const {Router} = require("express")
-const bcrypt = require('bcryptjs')
 const config = require('config')
 const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
@@ -31,12 +30,11 @@ router.post(
         {
             return res.status(400).json({message: 'Such a user already exists'});
         }
-
-        const hashedPassword = await bcrypt.hash(password, 23)
-        const user = new User({email: email, password: hashedPassword})
+        
+        const user = new User({email: email, password: password})
 
         await user.save()
-
+        
         res.status(201).json({message: 'User has been created'})
 
     } catch(e)
@@ -71,12 +69,10 @@ router.post(
                 return res.status(400).json({message: 'User not found'});
             }
             
-            const isMatch = await bcrypt.compare(password, user.password) // Пароль почему-то обводкой 42
-
-            if (!isMatch)
+            if (password != user.password)
             {
-                return res.status(400).json({message: 'Incorrect password.' +
-                        ' Try again'});
+                return res.status(400).json({message: 'Неверный пароль.' +
+                        ',попробуйте снова'});
             }
             
             const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {expiresIn: '4h'}) // Проблема с user ud 45
