@@ -1,7 +1,7 @@
 import React, {useContext,useEffect, useState} from 'react'
 import {useHttp} from "../hooks/http.hook";
 import {AuthContext} from "../context/AuthContext";
-import {useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
 export const CreatePage = () => {
     const history = useHistory()
@@ -18,10 +18,11 @@ export const CreatePage = () => {
      if (event.key === 'Enter') {
          try {
            const data = await request ('/api/link/generate', 'POST', {from: link}
-           ,{Authorization: 'Bearer ${auth.token}'
+           ,{Authorization: `Bearer ${auth.token}`   
            })
          history.push('detail/${data.link._id}')
-         }catch (e) {} 
+             window.location.href = 'http://localhost:3000/create';             
+         }catch (e) {}         
      }  
     }
     

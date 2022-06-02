@@ -28,7 +28,8 @@ router.post(
 
         if(candidate)
         {
-            return res.status(400).json({message: 'Such a user already exists'});
+            return res.status(400).json({message: 'Данный пользователь уже' +
+                    ' существует'});
         }
         
         const user = new User({email: email, password: password})
@@ -71,8 +72,8 @@ router.post(
             
             if (password != user.password)
             {
-                return res.status(400).json({message: 'Неверный пароль.' +
-                        ',попробуйте снова'});
+                return res.status(400).json({message: 'Неверный пароль' +
+                        ', попробуйте снова'});
             }
             
             const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {expiresIn: '4h'}) // Проблема с user ud 45
