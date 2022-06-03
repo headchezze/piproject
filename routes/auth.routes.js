@@ -8,8 +8,8 @@ const router = Router();
 router.post(
     '/register',
     [
-        check('email', 'Incorrect email').isEmail(),
-        check('password', 'Password must have at least 6 characters').isLength({min: 6})
+        check('email', 'Некорректный email').isEmail(),
+        check('password', 'Пароль должен быть больше 6 символов').isLength({min: 6})
     ],
     async (req, res) => {
     try
@@ -36,19 +36,19 @@ router.post(
 
         await user.save()
         
-        res.status(201).json({message: 'User has been created'})
+        res.status(201).json({message: 'Пользователь создан'})
 
     } catch(e)
     {
-        res.status(500).json({message: 'Oops, something goes wrong. Try next time!'});
+        res.status(500).json({message: 'Что-то пошло не так'});
     }
 })
 
 router.post(
     '/login', 
     [
-        check('email', 'Enter correct email').normalizeEmail().isEmail(),
-        check('password', "Enter password").exists()
+        check('email', 'Введите корректный email').normalizeEmail().isEmail(),
+        check('password', "Введите пароль").exists()
     ],
     async (req, res) => {
         try
@@ -59,7 +59,7 @@ router.post(
             {
                 return res.status(400).json({
                     errors: errors.array(),
-                    message: 'Invalid login details'})
+                    message: 'Некорректные данные для входа'})
             }
             
             const {email, password} = req.body
@@ -67,22 +67,23 @@ router.post(
             const user = await User.findOne({ email: email })
             if (!user)
             {
-                return res.status(400).json({message: 'User not found'});
+                return res.status(400).json({message: 'Такого пользователя' +
+                        ' не существует'});
             }
             
-            if (password != user.password)
+            if (password !== user.password)
             {
                 return res.status(400).json({message: 'Неверный пароль' +
                         ', попробуйте снова'});
             }
             
-            const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {expiresIn: '4h'}) // Проблема с user ud 45
+            const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {expiresIn: '5h'})
             
             res.json({token, userId: user.id})   
             
         } catch(e)
         {
-            res.status(500).json({message: 'Oops, something goes wrong. Try next time!'});
+            res.status(500).json({message: 'Что-то пошло не так'});
         }
 })
 
