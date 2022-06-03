@@ -21,7 +21,7 @@ export const CreatePage = () => {
            ,{Authorization: `Bearer ${auth.token}`   
            })
          history.push('detail/${data.link._id}')
-             window.location.href = 'http://localhost:3000/create';             
+             window.location.href = 'http://localhost:3000/links';             
          }catch (e) {}         
      }  
     }

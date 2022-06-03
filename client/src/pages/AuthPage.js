@@ -44,7 +44,7 @@ export const AuthPage = () => {
         <div className = "row">
             <div className="col s6 offset-s3">
                 <h1 class="center-align indigo-text">LinkWork - обработка ссылок</h1>
-                <div className="card light-blue darken-3">
+                <div className="card indigo indigo darken-1">
                     <div className="card-content white-text">
                         <span className="card-title" style={{marginLeft: 205}}>Авторизация</span>
                         <div>
