@@ -80,7 +80,6 @@ export const AuthPage = () => {
                         <button 
                         className="btn ldeep-purple lighten-3"  
                         style={{marginLeft: 85, marginRight: 30}}
-                        //onClick={loginHandler}
                         disabled={loading}
                         onClick={loginHandler}>
                         Войти в систему

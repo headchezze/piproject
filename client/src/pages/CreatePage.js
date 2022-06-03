@@ -29,6 +29,7 @@ export const CreatePage = () => {
     return (
         <div className="row">
             <div className=".col.s8.offset" style={{paddingTop: '2rem'}}>
+                <h3 className="center-align indigo-text" style={{marginBottom: 100}}>Создание ссылки</h3>
                 <div className="input-field">
                     <input
                         placeholder="Введите ссылку"
@@ -36,7 +37,7 @@ export const CreatePage = () => {
                         type="text"
                         value={link}
                         onChange={e => setLink(e.target.value)}
-                        onKeyPress={pressHandler}
+                        onKeyPress={pressHandler}                        
                     />                    
                 </div> 
             </div>            

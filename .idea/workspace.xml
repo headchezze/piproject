@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c07f78dd-9de8-4f74-81ad-ce2a612c8b44" name="Changes" comment="доделал фронт">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2022_1_32_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2022_1_32__Changes_.xml" beforeDir="false" />
+    <list default="true" id="c07f78dd-9de8-4f74-81ad-ce2a612c8b44" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/AuthPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/AuthPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/CreatePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/CreatePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/auth.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +63,8 @@
       <workItem from="1653476952323" duration="25687000" />
       <workItem from="1653848146140" duration="6516000" />
       <workItem from="1654013430085" duration="3986000" />
-      <workItem from="1654184541223" duration="5849000" />
+      <workItem from="1654184541223" duration="7016000" />
+      <workItem from="1654253573891" duration="2036000" />
     </task>
     <task id="LOCAL-00001" summary="добавлены 2 LinkCard и Loader">
       <created>1653944024001</created>
@@ -83,7 +80,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654020861069</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Поменял язык всплывающих уведомлений">
+      <created>1654193488687</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654193488687</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,6 +107,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="добавлены 2 LinkCard и Loader" />
     <MESSAGE value="доделал фронт" />
-    <option name="LAST_COMMIT_MESSAGE" value="доделал фронт" />
+    <MESSAGE value="Поменял язык всплывающих уведомлений" />
+    <option name="LAST_COMMIT_MESSAGE" value="Поменял язык всплывающих уведомлений" />
   </component>
 </project>
